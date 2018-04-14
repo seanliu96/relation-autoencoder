@@ -2,7 +2,7 @@ __author__ = 'diego'
 
 import nltk
 import re, string
-import settings
+# import settings
 import pickle
 
 parsing = 0
@@ -158,7 +158,7 @@ def posPatternPath(info, arg1, arg2):
     postags = info[pos].split()
     assert len(postags) == len(words), 'error'
     a = []
-    for w in xrange(len(words)):
+    for w in range(len(words)):
         a.append((words[w], postags[w]))
     # a = info[4].split()
     if a:

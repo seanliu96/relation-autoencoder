@@ -4,10 +4,11 @@ import argparse
 import os
 import sys
 import time
+sys.path.append(".")
 from definitions import OieFeatures
 from definitions import OieExample
-print sys.path
-import cPickle as pickle
+print(sys.path)
+import _pickle as pickle
 
 
 class FeatureLexicon:
@@ -66,6 +67,9 @@ class FeatureLexicon:
         return self.nextIdPruned
         # return self.nextId
 
+    def __str__(self):
+        return str({'count': self.nextId, 'id2Str': self.id2Str,
+        'countPruned': self.nextIdPruned, 'id2StrPruned': self.id2StrPruned})
 
 def getFeatures(lexicon, featureExs, info, arg1=None, arg2=None, expand=False):
     feats = []
@@ -183,23 +187,23 @@ if __name__ == '__main__':
 
     tStart = time.time()
 
-    print "Parameters: " + str(sys.argv[1::])
+    print("Parameters: " + str(sys.argv[1::]))
     parser = prepareArgParser()
     args = parser.parse_args()
 
-    print "Parsed params: " + str(args)
+    print("Parsed params: " + str(args))
 
-    print "Loading sentences...",
+    print("Loading sentences...", end='')
     relationExamples = loadExamples(args.input_file)
 
     tEnd = time.time()
-    print "Done (" + str(tEnd - tStart) + "s.)"
+    print("Done (" + str(tEnd - tStart) + "s.)")
 
     # predFeatureExtrs = definitions.SrlFeatures.getJohanssonPredDisFeatures()
     #
     featureExtrs = None
     if args.features == "basic":
-        print "Using rich features"
+        print("Using rich features")
         featureExtrs = OieFeatures.getBasicCleanFeatures()
 
     relationLexicon = FeatureLexicon()
@@ -209,7 +213,7 @@ if __name__ == '__main__':
 
     if os.path.exists(args.pickled_dataset):
         tStart = time.time()
-        print "Found existing pickled dataset, loading...",
+        print("Found existing pickled dataset, loading...", end='')
 
         pklFile = open(args.pickled_dataset, 'rb')
 
@@ -220,10 +224,10 @@ if __name__ == '__main__':
 
         pklFile.close()
         tEnd = time.time()
-        print "Done (" + str(tEnd - tStart) + "s.)"
+        print("Done (" + str(tEnd - tStart) + "s.)")
 
     tStart = time.time()
-    print "Processing relation Examples",
+    print("Processing relation Examples", end='')
 
     examples = []
     relationLabels = {}
@@ -242,9 +246,9 @@ if __name__ == '__main__':
     for re in relationExamples:
         reIdx += 1
         if reIdx % 1000 == 0:
-            print ".",
+            print(".", end='')
         if reIdx % 10000 == 0:
-            print reIdx,
+            print(reIdx, end='')
 
 
         relationE = ''
@@ -269,12 +273,11 @@ if __name__ == '__main__':
 
         examples.append(ex)
 
-
     tEnd = time.time()
-    print "Done (" + str(tEnd - tStart) + "s.), processed " + str(len(examples))
+    print("Done (" + str(tEnd - tStart) + "s.), processed " + str(len(examples)))
 
     tStart = time.time()
-    print "Pickling the dataset...",
+    print("Pickling the dataset...", end='')
 
     pklFile = open(args.pickled_dataset, 'wb')
     #pklFile = gzip.GzipFile(args.pickled_dataset, 'wb')
@@ -286,4 +289,4 @@ if __name__ == '__main__':
     pickle.dump(goldstandard, pklFile, protocol=pklProtocol)
 
     tEnd = time.time()
-    print "Done (" + str(tEnd - tStart) + "s.)"
+    print("Done (" + str(tEnd - tStart) + "s.)")

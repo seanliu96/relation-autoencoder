@@ -21,7 +21,7 @@ class IndependentRelationClassifiers(object):
         # w_bound = np.sqrt(self.h * self.r)
 
         # print str(1.0 / w_bound)
-        print 'low bound =', settings.low, 'high bound =', settings.high
+        print('low bound =', settings.low, 'high bound =', settings.high)
         self.W = theano.shared(np.asarray(rng.uniform(
             low=settings.low,
             high=settings.high,

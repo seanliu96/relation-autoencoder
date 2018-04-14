@@ -11,3 +11,6 @@ class OieExample (object):
 
     def setFeatures(self, features):
         self.features = features
+    
+    def __str__(self):
+        return str({'arg1': self.arg1,'arg2': self.arg2,'relation': self.relation,'trigger': self.trigger,'features': self.features,})
