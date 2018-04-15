@@ -452,7 +452,6 @@ def loadData(args, rng, negativeSamples, relationNum, modelType):
 
     trigs = False
 
-
     indexedDataset = DataSetManager(data, relationLexicon, rng, negativeSamples, relationNum, trigs)
 
     print("Produced indexed dataset")
@@ -662,7 +661,6 @@ if __name__ == '__main__':
     negativeSamples = args.negative_samples_number
     numberRelations = args.relations_number
     indexedData, goldStandard = loadData(args, rand, negativeSamples, numberRelations, args.model)
-
 
     maxEpochs = args.epochs
     learningRate = args.learning_rate

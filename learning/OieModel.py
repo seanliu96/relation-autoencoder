@@ -4,6 +4,9 @@ __author__ = 'diego'
 import theano.tensor as T
 import theano
 from models.encoders.RelationClassifier import IndependentRelationClassifiers
+from models.decoders.Bilinear import Bilinear
+from models.decoders.SelectionalPreferences import SelectionalPreferences
+from models.decoders.BilinearPlusSP import BilinearPlusSP
 
 class OieModelFunctions(object):
 
@@ -29,7 +32,7 @@ class OieModelFunctions(object):
 
         if self.model == 'A':
             print('Bilinear Model')
-            from models.decoders.Bilinear import Bilinear
+            
 
             self.argProjector = Bilinear(rng, embedSize, relationNum, self.a, data, extEmb)
             self.params += self.argProjector.params
@@ -39,7 +42,7 @@ class OieModelFunctions(object):
 
         elif self.model == 'AC':
             print('Bilinear + Selectional Preferences Model')
-            from models.decoders.BilinearPlusSP import BilinearPlusSP
+            
 
             self.argProjector = BilinearPlusSP(rng, embedSize, relationNum, self.a, data, extEmb)
             self.params += self.argProjector.params
@@ -50,7 +53,7 @@ class OieModelFunctions(object):
 
         elif self.model == 'C':
             print('Selectional Preferences')
-            from models.decoders.SelectionalPreferences import SelectionalPreferences
+            
 
             self.argProjector = SelectionalPreferences(rng, embedSize, relationNum, self.a, data, extEmb)
             self.params += self.argProjector.params
